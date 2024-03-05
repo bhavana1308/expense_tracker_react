@@ -39,7 +39,7 @@ const Login = () => {
         <div className='body'>
             <header className='header-body'>
                 <a href='/'>
-                    <img src={require('../images/TC-sm-logo.png')} alt='Small Task Crusher Logo' className='header-logo' />
+                    <img src={require('../images/TC-sm-logo.png')} alt='Small Logo' className='header-logo' />
                 </a>
             </header>
             <div className='tab-pane fade show active' id='pills-register'>
