@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { request, setAuthToken } from '../axios_helper';
 import { Button } from 'bootstrap';
-import '../styles/Register.css';
+import LoginFormStyles from '../styles/LoginFormStyles.css'
+
 
 const Register = () => {
     const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Register = () => {
         <div className='body'>
             <header className='header-body'>
                 <a href='/' className='container'>
-                    <img src={require('../images/TC-sm-logo.png')} alt='Small Logo' className='header-logo' />
+                    <img src={require('../images/small_logo.png')} alt='Small Logo' className='header-logo' />
                 </a>
             </header>
             <div className='tab-pane fade show active' id='pills-register'>
@@ -115,3 +116,4 @@ const Register = () => {
     )
 
 }
+export default Register;

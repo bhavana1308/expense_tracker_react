@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/login.css';
 import { request, setAuthToken } from '../axios_helper';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -39,7 +38,7 @@ const Login = () => {
         <div className='body'>
             <header className='header-body'>
                 <a href='/'>
-                    <img src={require('../images/TC-sm-logo.png')} alt='Small Logo' className='header-logo' />
+                    <img src={require('../images/small_logo.png')} alt='Small Logo' className='header-logo' />
                 </a>
             </header>
             <div className='tab-pane fade show active' id='pills-register'>
