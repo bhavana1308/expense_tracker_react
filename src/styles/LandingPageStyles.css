@@ -1,7 +1,8 @@
-/* .landingPage-body {
-    background-color: #9b4922 !important;
-} */
 
+html{
+    background-color: #9b4922 !important;
+
+}
 
 
 
@@ -9,24 +10,26 @@
     background-color: #9b4922 !important;
     /* min-height: 80vh; */
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    align-items:center;
+    /* margin-left: auto;
+    margin-right: auto; */
     /* margin-bottom: 200px; */
-    margin-top: 7%;
-    /* min-width: auto;
-    min-height: 500px; */
-    width: fit-content;
-    height: fit-content;
+    /* margin-top: 7%; */
+    min-width: auto;
+    min-height: 100vh;
+    /* width: fit-content !;
+    height: fit-content; */
 }
 
 
 .landingPage-image {
-    display: block;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-   
+  width: 30%;
+  display: block;
+  align-items:center;
+  margin-top: 100px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landingPage-btn {
@@ -34,8 +37,8 @@
     color: #fff !important;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    /* margin-top: 10px ;
+    margin-bottom: 10px; */
 }
 
 .landingPage-btn:hover {

@@ -1,6 +1,9 @@
-.html {
-    background-color: #9b4922  !important;
+
+.body{
+background-color: #fff;
+min-height: 100vh;
 }
+
 
 .header-logo {
     margin: 20px;
@@ -12,10 +15,11 @@
 } */
 
 form {
-    margin: auto !important;
+    margin: auto;
     width: 75% !important;
     border: 3px solid #C88a36 !important;
     padding: 10px !important;
+    
   }
   
 

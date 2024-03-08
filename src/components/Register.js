@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { request, setAuthToken } from '../axios_helper';
 import { Button } from 'bootstrap';
-import LoginFormStyles from '../styles/LoginFormStyles.css'
+import '../styles/LoginFormStyles.css';
 
 
 const Register = () => {

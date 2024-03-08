@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { request, setAuthToken } from '../axios_helper';
 import { Link, useNavigate } from 'react-router-dom';
+import '../styles/LoginFormStyles.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Login = () => {
                 </a>
             </header>
             <div className='tab-pane fade show active' id='pills-register'>
-                <form className='login-form' onSubmit={onSubmitParentLogin}>
+                <form className='form' onSubmit={onSubmitParentLogin}>
                     <div className=''>
                         <div className='jumbotron jumbotron'>
                             <div className='container'>
