@@ -1,4 +1,4 @@
-.body {
+.html {
     background-color: #9b4922  !important;
 }
 
@@ -6,16 +6,16 @@
     margin: 20px;
 }
 
-.register-form {
+/* .register-form {
     background-color: white;
     border-color: #C88a36;
-}
+} */
 
-form.group {
-    margin: auto;
-    width: 75%;
-    border: 3px solid #C88a36;
-    padding: 10px;
+form {
+    margin: auto !important;
+    width: 75% !important;
+    border: 3px solid #C88a36 !important;
+    padding: 10px !important;
   }
   
 
