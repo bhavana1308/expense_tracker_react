@@ -1,0 +1,40 @@
+
+.body{
+background-color: #fff;
+min-height: 100vh;
+}
+
+
+.header-logo {
+    margin: 20px;
+}
+
+/* .register-form {
+    background-color: white;
+    border-color: #C88a36;
+} */
+
+form {
+    margin: auto;
+    width: 75% !important;
+    border: 3px solid #C88a36 !important;
+    padding: 10px !important;
+    
+  }
+  
+
+.register-btn {
+    background-color: #d8a790 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+.register-btn:hover {
+    background-color: #C88a36 !important;
+    color: white !important;
+}
+
+.message {
+    padding-top: 0;
+    padding-bottom: 10px;
+}
