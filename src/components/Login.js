@@ -3,6 +3,7 @@ import { request, setAuthToken } from '../axios_helper';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/LoginFormStyles.css';
 
+
 const Login = () => {
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ const Login = () => {
 
     return (
         <div className='body'>
-            <header className='header-body'>
+           <header className='header-body'>
                 <a href='/'>
                     <img src={require('../images/small_logo.png')} alt='Small Logo' className='header-logo' />
                 </a>

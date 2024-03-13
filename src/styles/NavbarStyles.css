@@ -1,0 +1,10 @@
+.header-body {
+    background-color: #d8a790!important;
+    padding: 20px;
+}
+
+.header-logo {
+    max-width: 100%;
+    height: auto;
+    margin-right: 15px;
+}
