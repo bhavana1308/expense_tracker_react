@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../../axios_helper';
+import { Form, Button } from 'react-bootstrap';
 
 const AddExpense = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const AddExpense = () => {
     description: '',
     amount: 0,
     category: '',
-    });
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,41 +51,38 @@ const AddExpense = () => {
       <Navbar />
       <h1>Create a new Expense</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <input
-            id="description"
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>Description:</Form.Label>
+          <Form.Control
             name="description"
             type="text"
             value={expense.description}
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <label htmlFor="amount">Amount:</label>
-          <input
-            id="amount"
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Amount:</Form.Label>
+          <Form.Control
             name="amount"
             type="number"
             value={expense.amount}
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <label htmlFor="category">Category:</label>
-          <input
-            id="category"
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Category:</Form.Label>
+          <Form.Control
             name="category"
             type="text"
             value={expense.category}
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <button type="submit">Create Expense</button>
-        </div>
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Create Expense
+        </Button>
+      </Form>
     </div>
   );
 };
