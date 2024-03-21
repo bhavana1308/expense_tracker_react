@@ -25,7 +25,19 @@ const ExpenseList = () => {
     fetchExpenses();
   }, [userId]);
 
-  
+  const handleDelete = async (expenseId) => {
+    try {
+        const id = getUserIdFromAuthToken(getAuthToken());
+      const response = await request('DELETE', `/api/expenses/delete/${expenseId}?id=${id}`);
+      if (response.status === 200) {
+        console.log('Expense deleted successfully');
+        } else {
+        console.error('Failed to delete expense');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
   return (
     <div>
