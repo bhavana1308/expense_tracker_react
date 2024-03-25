@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
-import { request, getAuthToken, getUserIdFromAuthToken } from '../../axios_helper';
+import Navbar from './Navbar';
+import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Form, Button } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AddExpense = () => {
   const navigate = useNavigate();
@@ -12,6 +14,7 @@ const AddExpense = () => {
     description: '',
     amount: 0,
     category: '',
+    date: new Date() // Default to current date
   });
 
   const handleSubmit = async (e) => {
@@ -23,7 +26,7 @@ const AddExpense = () => {
     }
 
     try {
-      const response = await request('POST', `api/expenses/add?id=${userId}`, expense);
+      const response = await request('POST', `api/expense/add?id=${userId}`, expense);
 
       if (response.status === 201) {
         console.log('Expense added successfully');
@@ -31,8 +34,9 @@ const AddExpense = () => {
           description: '',
           amount: 0,
           category: '',
+          date: new Date() // Reset date to current date
         });
-        navigate('/api/expenses/list'); 
+        navigate('/api/expense/list'); 
       } else {
         console.error('Failed to add expense');
       }
@@ -44,6 +48,10 @@ const AddExpense = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setExpense({ ...expense, [name]: value });
+  };
+
+  const handleDateChange = (date) => {
+    setExpense({ ...expense, date });
   };
 
   return (
@@ -78,6 +86,11 @@ const AddExpense = () => {
             value={expense.category}
             onChange={handleChange}
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Date:</Form.Label>
+          <br />
+          <DatePicker selected={expense.date} onChange={handleDateChange} />
         </Form.Group>
         <Button variant="primary" type="submit">
           Create Expense
