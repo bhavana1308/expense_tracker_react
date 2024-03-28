@@ -7,6 +7,9 @@ import EditExpense from './components/EditExpense';
 import Logout from './components/Logout';
 import LogoutSuccess from './components/LogoutSuccess';
 import ExpenseList from './components/ExpenseList';
+import YearlyExpenses from './components/YearlyExpenses';
+import MonthlyExpenses from './components/MonthlyExpenses';
+import DailyExpenses from './components/DailyExpenses';
 
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
       <Route path="/api/expense/edit/:expenseId" element={<EditExpense />} />
       <Route path='/api/logout' element={<Logout />} />
       <Route path='/api/logout-success' element={<LogoutSuccess />} />
+      <Route path="/api/expenses/yearly" element={<YearlyExpenses />} />
+        <Route path="/api/expenses/monthly/:year" element={<MonthlyExpenses />} />
+        <Route path="/api/expenses/daily/:year/:month" element={<DailyExpenses />} />
      
      </Routes>
   );

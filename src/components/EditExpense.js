@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
-import { request, getAuthToken, getUserIdFromAuthToken } from '../../axios_helper';
+import Navbar from './Navbar';
+import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Form, Button } from 'react-bootstrap';
 
 const EditExpense = () => {
