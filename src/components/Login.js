@@ -24,7 +24,7 @@ const Login = () => {
         try {
             const response = await request("POST", "/api/login", formData);
             setAuthToken(response.data.token);
-             navigate('/api/expense/list');
+             navigate('/api/expenses/yearly');
         } catch (error) {
             console.error("Login failed:", error);
             alert("Invalid username or password. Please try again.");
