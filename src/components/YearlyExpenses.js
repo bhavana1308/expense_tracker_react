@@ -10,12 +10,14 @@ const YearlyExpenses = () => {
   const userId = getUserIdFromAuthToken(getAuthToken());
 
   useEffect(() => {
-    fetchYearlyExpenses();
-  }, []);
+    if (selectedYear) {
+      fetchYearlyExpenses();
+    }
+  }, [selectedYear]);
 
   const fetchYearlyExpenses = async () => {
     try {
-      const response = await request('GET', `/api/expenses/yearly?userId=${userId}`);
+      const response = await request('GET', `/api/expenses/yearly?userId=${userId}&year=${selectedYear}`);
       if (response.status === 200) {
         setYearlyExpenses(response.data);
       } else {
@@ -29,6 +31,14 @@ const YearlyExpenses = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
+
+  const filteredExpenses = Array.isArray(yearlyExpenses) ?
+    yearlyExpenses.filter(expense => {
+      // Parse the year value from the expense object
+      const expenseYear = parseInt(expense.year.split('-')[0]); // Extracting the year part from "yyyy-mm-dd"
+      return expenseYear === parseInt(selectedYear);
+    }) :
+    [];
 
   return (
     <div>
@@ -66,24 +76,20 @@ const YearlyExpenses = () => {
           />
         </div>
       </Form.Group>
-      {selectedYear && (
-        <div className="card-container">
-          {yearlyExpenses
-            .filter(expense => expense.year === selectedYear)
-            .map((expense, index) => (
-              <Card key={index}>
-                <Card.Body>
-                  <Card.Title>{expense.year}</Card.Title>
-                  <Card.Text>Total Expenses: {expense.totalExpense}</Card.Text>
-                  <Link to={`/${expense.year}`}>View Monthly Expenses</Link>
-                </Card.Body>
-              </Card>
-             
-            ))}
-        </div>
-      )}
+
+      <div className="card-container">
+        {filteredExpenses.map((expense, index) => (
+          <Card key={index}>
+            <Card.Body>
+              <Card.Title>{expense.year}</Card.Title>
+              <Card.Text>Total Expenses: {expense.totalExpense}</Card.Text>
+              <Link to={`/${expense.year}`}>View Monthly Expenses</Link>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default YearlyExpenses;
