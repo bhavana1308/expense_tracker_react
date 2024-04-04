@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Form, Card } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
 const YearlyExpenses = () => {
   const [yearlyExpenses, setYearlyExpenses] = useState([]);
@@ -83,8 +84,8 @@ const YearlyExpenses = () => {
             <Card.Body>
               <Card.Title>{expense.year}</Card.Title>
               <Card.Text>Total Expenses: {expense.totalExpense}</Card.Text>
-              <Link to={`/${expense.year}`}>View Monthly Expenses</Link>
-            </Card.Body>
+              <Link to={`/api/expenses/monthly/${selectedYear}`}>View Monthly Expenses</Link>
+              </Card.Body>
           </Card>
         ))}
       </div>
