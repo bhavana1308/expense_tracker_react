@@ -28,7 +28,7 @@ const AddExpense = () => {
     try {
       const response = await request('POST', `api/expense/add?id=${userId}`, expense);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log('Expense added successfully');
         setExpense({
           description: '',
