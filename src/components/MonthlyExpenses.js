@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Nav, Card } from 'react-bootstrap';
 
 const MonthlyExpenses = () => {
   const { year } = useParams();
-  const [expenses, setExpenses] = useState(null); // Initialize expenses as null
+  const [totalExpense, setTotalExpense] = useState(null); // Initialize totalExpense as null
   const [activeMonth, setActiveMonth] = useState(1);
   const userId = getUserIdFromAuthToken(getAuthToken());
 
   useEffect(() => {
-    fetchMonthlyExpenses(year, activeMonth);
+    fetchMonthlyTotalExpense(year, activeMonth);
   }, [year, activeMonth]);
 
-  const fetchMonthlyExpenses = async (selectedYear, selectedMonth) => {
+  const fetchMonthlyTotalExpense = async (selectedYear, selectedMonth) => {
     try {
       const response = await request('GET', `/api/expenses/monthly?userId=${userId}&year=${selectedYear}&month=${selectedMonth}`);
-      setExpenses(response.data);
+      if (response.status === 200) {
+        setTotalExpense(response.data.totalExpense);
+      } else {
+       console.error('Unexpected response status:', response.status);
+      }
     } catch (error) {
       console.error('An error occurred:', error);
-      setExpenses([]); // Set expenses to an empty array or another appropriate value on error
     }
   };
 
@@ -43,12 +46,6 @@ const MonthlyExpenses = () => {
     { name: 'December', number: 12 },
   ];
 
-  // Ensure expenses is not null before attempting to filter
-  const filteredExpenses = expenses && Array.isArray(expenses) ? expenses.filter(expense => {
-    const expenseMonth = parseInt(expense.month.split('-')[1]); 
-    return expenseMonth === activeMonth;
-  }) : [];
-
   return (
     <div>
       <Navbar />
@@ -63,18 +60,12 @@ const MonthlyExpenses = () => {
         ))}
       </Nav>
       <div className="card-container">
-        {filteredExpenses.length > 0 ? (
-          filteredExpenses.map((expense, index) => (
-            <Card key={index}>
-              <Card.Body>
-                <Card.Title>{expense.month}</Card.Title>
-                <Card.Text>Total Expenses: {expense.totalExpense}</Card.Text>
-                </Card.Body>
-            </Card>
-          ))
-        ) : (
-          <p>No expenses available for this month</p>
-        )}
+        <Card>
+          <Card.Body>
+            <Card.Title>Total Expense for {months.find(m => m.number === activeMonth).name}</Card.Title>
+            <Card.Text>{JSON.stringify(totalExpense)}</Card.Text>
+          </Card.Body>
+        </Card>
       </div>
     </div>
   );
