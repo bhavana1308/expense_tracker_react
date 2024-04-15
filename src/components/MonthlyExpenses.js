@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
-import { Nav, Card } from 'react-bootstrap';
+import { Nav, Card} from 'react-bootstrap';
+
+import { Link } from 'react-router-dom';
 
 const MonthlyExpenses = () => {
   const { year } = useParams();
@@ -64,6 +66,7 @@ const MonthlyExpenses = () => {
           <Card.Body>
             <Card.Title>Total Expense for {months.find(m => m.number === activeMonth).name}</Card.Title>
             <Card.Text>{JSON.stringify(totalExpense)}</Card.Text>
+            <Link to={`/api/expenses/${year}/${activeMonth}`}> View Expenses by Day </Link>
           </Card.Body>
         </Card>
       </div>
