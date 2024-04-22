@@ -5,7 +5,7 @@ import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 
 const DailyExpenses = () => {
   const { year, month } = useParams();
-  const [dailyExpenses, setDailyExpenses] = useState([]);
+  const [dailyExpenses, setDailyExpenses] = useState({});
   const userId = getUserIdFromAuthToken(getAuthToken());
 
   useEffect(() => {
@@ -14,12 +14,21 @@ const DailyExpenses = () => {
 
   const fetchDailyExpenses = async () => {
     try {
-      const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}`);
-      if (response.status === 200) {
-        setDailyExpenses(response.data);
-      } else {
-        console.error('Failed to fetch daily expenses');
+      const daysInMonth = new Date(year, month, 0).getDate(); // Get the number of days in the month
+      const expensesByDay = {};
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${day}`);
+        
+        if (response.status === 200) {
+          expensesByDay[day] = response.data.totalExpense;
+        } else {
+          console.error(`Failed to fetch daily expenses for day ${day}`);
+          expensesByDay[day] = 0; 
+        }
       }
+
+      setDailyExpenses(expensesByDay);
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -30,9 +39,9 @@ const DailyExpenses = () => {
       <Navbar />
       <h1>Daily Expenses for {month}/{year}</h1>
       <ul>
-        {dailyExpenses.map((expense, index) => (
-          <li key={index}>
-            {expense.day}: {expense.amount}
+        {Object.entries(dailyExpenses).map(([day, expense]) => (
+          <li key={day}>
+            Day {day}: {expense}
           </li>
         ))}
       </ul>
