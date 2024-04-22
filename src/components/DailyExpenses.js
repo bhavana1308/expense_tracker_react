@@ -15,15 +15,19 @@ const DailyExpenses = () => {
   useEffect(() => {
     if (selectedDate) {
       fetchTotalExpenseForDate(selectedDate);
-      fetchExpensesForDate(selectedDate);
     }
   }, [selectedDate]);
 
   const fetchTotalExpenseForDate = async (date) => {
     try {
-      const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${date}`);
+      const day = selectedDate.getDate();
+      const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${day}`);
       if (response.status === 200) {
-        setTotalExpense(response.data.totalExpense);
+        // Extract the total expense value from the response object
+        const totalExpense = response.data[day] || null;
+        setTotalExpense(totalExpense);
+        // Fetch all expenses for the selected date
+        fetchExpensesForDate(date);
       } else {
         console.error(`Failed to fetch total expense for date ${date}`);
         setTotalExpense(null);
@@ -33,11 +37,12 @@ const DailyExpenses = () => {
       setTotalExpense(null);
     }
   };
+  
 
   const fetchExpensesForDate = async (date) => {
     try {
-      // Assuming you have an API endpoint to fetch expenses for a specific date
-      const response = await request('GET', `/api/expenses/for-date?userId=${userId}&year=${year}&month=${month}&day=${date}`);
+      const day = selectedDate.getDate();
+      const response = await request('GET', `/api/expenses/for-date?userId=${userId}&year=${year}&month=${month}&day=${day}`);
       if (response.status === 200) {
         setExpensesForDate(response.data.expenses);
       } else {
@@ -66,12 +71,21 @@ const DailyExpenses = () => {
         placeholderText="Select Date"
       />
 
-      {/* Display total expense and list of expenses for selected date */}
-      {selectedDate && (
-        <>
-          <h2>Total Expense for {selectedDate}: {totalExpense !== null ? totalExpense : 'N/A'}</h2>
-          <ExpenseList expenses={expensesForDate} />
-        </>
+      {/* Display total expense */}
+      {totalExpense !== null && (
+        <h3>Total Expense for {selectedDate.toLocaleDateString()}: {JSON.stringify(totalExpense)}</h3>
+      )}
+
+      {/* View details button */}
+      {totalExpense !== null && (
+        <button onClick={() => fetchExpensesForDate(selectedDate)}>
+          View Details
+        </button>
+      )}
+
+      {/* Display list of expenses for the selected date */}
+      {expensesForDate.length > 0 && (
+        <ExpenseList expenses={expensesForDate} />
       )}
     </div>
   );
