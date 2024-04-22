@@ -24,7 +24,7 @@ const DailyExpenses = () => {
       const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${day}`);
       if (response.status === 200) {
         // Extract the total expense value from the response object
-        const totalExpense = response.data[day] || null;
+        const totalExpense = response.data.totalExpense;
         setTotalExpense(totalExpense);
         // Fetch all expenses for the selected date
         fetchExpensesForDate(date);
@@ -84,9 +84,11 @@ const DailyExpenses = () => {
       )}
 
       {/* Display list of expenses for the selected date */}
-      {expensesForDate.length > 0 && (
-        <ExpenseList expenses={expensesForDate} />
-      )}
+       
+      {/* {expensesForDate && (
+       
+      <ExpenseList expenses={expensesForDate}  /> */}
+{/* )} */}
     </div>
   );
 };
