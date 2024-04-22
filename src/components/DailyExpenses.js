@@ -9,26 +9,17 @@ const DailyExpenses = () => {
   const userId = getUserIdFromAuthToken(getAuthToken());
 
   useEffect(() => {
-    fetchDailyExpenses();
+    fetchMonthlyExpenses();
   }, [year, month]);
 
-  const fetchDailyExpenses = async () => {
+  const fetchMonthlyExpenses = async () => {
     try {
-      const daysInMonth = new Date(year, month, 0).getDate(); // Get the number of days in the month
-      const expensesByDay = {};
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${day}`);
-        
-        if (response.status === 200) {
-          expensesByDay[day] = response.data.totalExpense;
-        } else {
-          console.error(`Failed to fetch daily expenses for day ${day}`);
-          expensesByDay[day] = 0; 
-        }
+      const response = await request('GET', `/api/expenses/monthly?userId=${userId}&year=${year}&month=${month}`);
+      if (response.status === 200) {
+        setDailyExpenses(response.data);
+      } else {
+        console.error('Failed to fetch monthly expenses');
       }
-
-      setDailyExpenses(expensesByDay);
     } catch (error) {
       console.error('An error occurred:', error);
     }
