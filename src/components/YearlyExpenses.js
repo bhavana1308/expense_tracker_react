@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Form, Card } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
+import '../styles/YearlyExpenses.css';
 
 const YearlyExpenses = () => {
   const [yearlyExpenses, setYearlyExpenses] = useState([]);
@@ -45,6 +46,8 @@ const YearlyExpenses = () => {
     <div>
       <Navbar />
       <h1>Yearly Expenses</h1>
+      <div className="container">
+      
       <Form.Group>
         <Form.Label>Select Year:</Form.Label>
         <div>
@@ -77,15 +80,18 @@ const YearlyExpenses = () => {
           />
         </div>
       </Form.Group>
+      </div>
 
       <div className="card-container">
         {filteredExpenses.map((expense, index) => (
           <Card key={index}>
+             <div className="card-item">
             <Card.Body>
               <Card.Title>{expense.year}</Card.Title>
               <Card.Text>Total Expenses: {expense.totalExpense}</Card.Text>
-              <Link to={`/api/expenses/monthly/${selectedYear}`}>View Monthly Expenses</Link>
+              <Link to={`/api/expenses/monthly/${selectedYear}`} className='link'>View Monthly Expenses</Link>
               </Card.Body>
+              </div>
           </Card>
         ))}
       </div>

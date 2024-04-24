@@ -1,11 +1,12 @@
 .header-body {
     background-color: #d8a790!important;
     padding: 10px;
-    height: 175px;
+    height: 150px;
+    
 }
 
 .header-logo {
-    margin-top: 5px;
+    margin-top: auto;
     max-width: 100%;
     height: auto;
     margin-right: 10px;
