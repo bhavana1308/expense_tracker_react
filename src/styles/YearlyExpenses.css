@@ -1,0 +1,61 @@
+h1{
+    font-family:'montserrat';
+    font-size: large ;
+    text-align: center;
+    margin-top: 10px !important;
+  }
+
+  .container {
+    display: flex;
+    margin: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .form-label {
+    font-family:'montserrat' ;
+    font-size: 25px;
+}
+  
+  .form-check-inline {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+
+  .card-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style-type: none;
+  }
+
+  .card-item {
+    font-family:'montserrat' ;
+    font-size: 20px;
+    width: 300px !important;
+    border: 3px solid #C88a36 !important;;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+  }
+
+  .link{
+    font-family:'montserrat' ;
+    font-size: 20px;
+    text-decoration: none;
+    color: #9b4922 ;
+  }
+
+  .link:hover {
+    text-decoration: underline; 
+  }
