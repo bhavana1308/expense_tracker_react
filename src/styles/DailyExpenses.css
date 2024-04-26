@@ -1,0 +1,31 @@
+h1{
+    font-family:'montserrat';
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px !important;
+    margin-bottom: 20px;
+  }
+
+
+h2{
+    font-family:'montserrat';
+    font-size: 20px !important;
+    text-align: center;
+    margin-top: 40px !important;
+    }
+
+    .btn {
+    
+        background-color: #9b4922 !important;
+        color: #fff !important;
+        margin: 20px;
+       
+        
+    }
+    
+    .btn:hover {
+        background-color: #C88a36  !important;
+        color: white !important;
+    }
+    
+
