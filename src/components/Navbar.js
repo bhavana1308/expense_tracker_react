@@ -14,24 +14,22 @@ export default function Navbar() {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                        <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/api/expenses/yearly">Home</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/api/expense/add">Add Expense</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/api/expense/list">Expenses List</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <Logout />
-                            </li>
-                        </ul>
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/api/expenses/yearly">Home</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/api/expense/add">Add Expense</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/api/expense/list">Expenses List</a>
+                        </li>
+                    </ul>
+                    <ul className="navbar-nav">
+                        <li className="nav-item ms-auto">
+                            <Logout />
+                        </li>
+                    </ul>
                     </div>
                 </div>
             </nav>
