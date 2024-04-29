@@ -12,3 +12,10 @@
     margin-right: 10px;
     margin-bottom: 5px;
 }
+
+.btn-logout{
+       background: none;
+        border: none;
+        padding: 0;
+        
+}
