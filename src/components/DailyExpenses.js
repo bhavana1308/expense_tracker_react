@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import DatePicker from 'react-datepicker';
 import ExpenseList from './ExpenseList'; 
+import '../styles/DailyExpenses.css';
 
 const DailyExpenses = () => {
   const { year, month } = useParams();
@@ -60,25 +61,31 @@ const DailyExpenses = () => {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
+
       <Navbar />
+
       <h1>Daily Expenses for {month}/{year}</h1>
+
       {/* DatePicker for selecting date */}
-      <DatePicker
-        selected={selectedDate}
-        onChange={handleDateChange}
-        dateFormat="MM/dd/yyyy"
-        placeholderText="Select Date"
-      />
+      <div style={{ display: "inline-block" }}>
+        <DatePicker 
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="MM/dd/yyyy"
+          placeholderText="Select Date"
+        />
+      </div>
+    
 
       {/* Display total expense */}
       {totalExpense !== null && (
-        <h3>Total Expense for {selectedDate.toLocaleDateString()}: {JSON.stringify(totalExpense)}</h3>
+        <h2>Total Expense for {selectedDate.toLocaleDateString()}: {JSON.stringify(totalExpense)}</h2>
       )}
 
       {/* View details button */}
       {totalExpense !== null && (
-        <button onClick={() => fetchExpensesForDate(selectedDate)}>
+        <button className='btn' onClick={() => fetchExpensesForDate(selectedDate)}>
           View Details
         </button>
       )}
