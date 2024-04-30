@@ -21,14 +21,11 @@ const DailyExpenses = () => {
 
   const fetchTotalExpenseForDate = async (date) => {
     try {
-      const day = selectedDate.getDate();
+      const day = date.getDate();
       const response = await request('GET', `/api/expenses/daily?userId=${userId}&year=${year}&month=${month}&day=${day}`);
       if (response.status === 200) {
-        // Extract the total expense value from the response object
         const totalExpense = response.data.totalExpense;
         setTotalExpense(totalExpense);
-        // Fetch all expenses for the selected date
-        fetchExpensesForDate(date);
       } else {
         console.error(`Failed to fetch total expense for date ${date}`);
         setTotalExpense(null);
@@ -38,14 +35,13 @@ const DailyExpenses = () => {
       setTotalExpense(null);
     }
   };
-  
 
   const fetchExpensesForDate = async (date) => {
     try {
-      const day = selectedDate.getDate();
+      const day = date.getDate();
       const response = await request('GET', `/api/expenses/for-date?userId=${userId}&year=${year}&month=${month}&day=${day}`);
       if (response.status === 200) {
-        setExpensesForDate(response.data.expenses);
+        setExpensesForDate(response.data);
       } else {
         console.error(`Failed to fetch expenses for date ${date}`);
         setExpensesForDate([]);
@@ -55,9 +51,19 @@ const DailyExpenses = () => {
       setExpensesForDate([]);
     }
   };
+  
+  const handleFilterExpenses = (filteredExpenses) => {
+    setExpensesForDate(filteredExpenses);
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+  };
+
+  const handleViewDetails = () => {
+    if (selectedDate) {
+      fetchExpensesForDate(selectedDate);
+    }
   };
 
   return (
@@ -67,7 +73,6 @@ const DailyExpenses = () => {
 
       <h1>Daily Expenses for {month}/{year}</h1>
 
-      {/* DatePicker for selecting date */}
       <div style={{ display: "inline-block" }}>
         <DatePicker 
           selected={selectedDate}
@@ -76,26 +81,18 @@ const DailyExpenses = () => {
           placeholderText="Select Date"
         />
       </div>
-    
 
-      {/* Display total expense */}
       {totalExpense !== null && (
         <h2>Total Expense for {selectedDate.toLocaleDateString()}: {JSON.stringify(totalExpense)}</h2>
       )}
 
-      {/* View details button */}
       {totalExpense !== null && (
-        <button className='btn' onClick={() => fetchExpensesForDate(selectedDate)}>
+        <button className='btn' onClick={handleViewDetails}>
           View Details
         </button>
       )}
 
-      {/* Display list of expenses for the selected date */}
-       
-      {/* {expensesForDate && (
-       
-      <ExpenseList expenses={expensesForDate}  /> */}
-{/* )} */}
+      {expensesForDate.length > 0 && <ExpenseList expenses={expensesForDate} onFilter={handleFilterExpenses} />}
     </div>
   );
 };
