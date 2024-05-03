@@ -1,0 +1,33 @@
+
+h1{
+    font-family:'montserrat';
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px !important;
+    margin-bottom: 20px;
+  }
+
+
+
+  .card-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    list-style-type: none;
+  }
+
+
+  .card-item {
+  
+    font-family:'montserrat' ;
+    font-size: 20px;
+    width: 300px !important;
+    border: 3px solid #C88a36 !important;;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+  }
