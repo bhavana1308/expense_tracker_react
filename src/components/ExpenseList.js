@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { request, getAuthToken, getUserIdFromAuthToken } from '../axios_helper';
 import { Card, Button, Dropdown } from 'react-bootstrap';
+import '../styles/ExpenseList.css'
 
-const ExpenseList = () => {
+const ExpenseList = ({ onFilter }) => {
   const [expenses, setExpenses] = useState([]);
-  const [sortBy, setSortBy] = useState('date'); // Default sorting option
+  const [sortBy, setSortBy] = useState('date');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchExpenses();
-  }, [sortBy]); // Update expenses when sorting option changes
+  }, [sortBy]);
 
   const fetchExpenses = async () => {
     try {
+      setLoading(true);
       const id = getUserIdFromAuthToken(getAuthToken());
       const currentDate = new Date();
-      const month = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+      const month = currentDate.getMonth() + 1;
       const year = currentDate.getFullYear();
       
       let response;
@@ -27,11 +30,15 @@ const ExpenseList = () => {
       
       if (response.status === 200) {
         setExpenses(response.data);
+        // Pass filtered expenses to parent component
+        onFilter(response.data);
       } else {
         console.error('Failed to fetch expenses');
       }
     } catch (error) {
       console.error('An error occurred:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,7 +48,7 @@ const ExpenseList = () => {
       const response = await request('DELETE', `/api/expenses/delete/${expenseId}?id=${id}`);
       if (response.status === 200) {
         console.log('Expense deleted successfully');
-        fetchExpenses(); // Refetch expenses after deletion
+        fetchExpenses();
       } else {
         console.error('Failed to delete expense');
       }
@@ -57,9 +64,9 @@ const ExpenseList = () => {
   return (
     <div>
       <Navbar />
-      <div className="container">
+      
         <h1>Expense List</h1>
-        <div className="d-flex justify-content-end mb-3">
+        <div className="d-flex justify-content-center mb-3">
           <Dropdown>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               Sort By: {sortBy === 'date' ? 'Date' : 'Amount'}
@@ -70,24 +77,28 @@ const ExpenseList = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <div className="row">
-          {expenses.map(expense => (
-            <div key={expense.id} className="col-md-4 mb-4">
-              <Card>
-                <Card.Body>
-                  <Card.Title>{expense.description}</Card.Title>
-                  <Card.Text>
-                    <strong>Amount:</strong> {expense.amount}<br />
-                    <strong>Category:</strong> {expense.category}
-                  </Card.Text>
-                  <Button variant="danger" onClick={() => handleDelete(expense.id)}>Delete</Button>
-                </Card.Body>
-              </Card>
-            </div>
-          ))}
+        <div className="card-container">
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            expenses.map(expense => (
+              <div key={expense.id} className="col-md-4 mb-4">
+                <Card className='card-item'>
+                  <Card.Body>
+                    <Card.Title>{expense.description}</Card.Title>
+                    <Card.Text>
+                      <strong>Amount:</strong> {expense.amount}<br />
+                      <strong>Category:</strong> {expense.category}
+                    </Card.Text>
+                    <Button variant="danger" onClick={() => handleDelete(expense.id)}>Delete</Button>
+                  </Card.Body>
+                </Card>
+              </div>
+            ))
+          )}
         </div>
       </div>
-    </div>
+   
   );
 };
 
