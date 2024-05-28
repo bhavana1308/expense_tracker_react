@@ -15,7 +15,7 @@ const Login = () => {
     const onSubmitParentLogin = async (e) => {
         e.preventDefault();
 
-        // Basic input validation
+        
         if (!formData.username || !formData.password) {
             alert("Please enter both username and password.");
             return;
