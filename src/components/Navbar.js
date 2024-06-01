@@ -21,9 +21,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link active" aria-current="page" href="/api/expense/add">Add Expense</a>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a className="nav-link active" aria-current="page" href="/api/expense/list">Expenses List</a>
-                        </li>
+                        </li> */}
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item ms-auto">
