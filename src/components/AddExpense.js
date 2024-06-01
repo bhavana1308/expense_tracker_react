@@ -36,7 +36,7 @@ const AddExpense = () => {
           category: '',
           date: new Date() // Reset date to current date
         });
-        navigate('/api/expense/list'); 
+        // navigate('/api/expense/list'); 
       } else {
         console.error('Failed to add expense');
       }
